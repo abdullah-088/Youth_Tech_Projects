@@ -1,0 +1,61 @@
+Run started:2025-08-20 15:51:58.724183
+
+Test results:
+>> Issue: [B307:blacklist] Use of possibly insecure function - consider using safer ast.literal_eval.
+   Severity: Medium   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/blacklists/blacklist_calls.html#b307-eval
+   Location: .\app.py:12:21
+11	    expr = input("Enter a math expression: ")
+12	    print("Result:", eval(expr))  # Vulnerable
+13	
+
+--------------------------------------------------
+>> Issue: [B605:start_process_with_a_shell] Starting a process with a shell, possible injection detected, security issue.
+   Severity: High   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/1.8.6/plugins/b605_start_process_with_a_shell.html
+   Location: .\app.py:17:4
+16	    folder = input("Enter folder path: ")
+17	    os.system(f"dir {folder}")  # Vulnerable
+18	
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 13
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 1
+		High: 1
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 2
+Files skipped (0):
+app.py:6:1: E302 expected 2 blank lines, found 1
+app.py:10:1: E302 expected 2 blank lines, found 1
+app.py:15:1: E302 expected 2 blank lines, found 1
+app.py:19:1: E305 expected 2 blank lines after class or function definition, found 1
+app.py:23:1: W391 blank line at end of file
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                         
+  [36m[22m[24m  app.py[0m
+    ❯❱ python.lang.security.audit.eval-detected.eval-detected
+          Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this 
+          content can be input from outside the program, this may be a code injection vulnerability. Ensure
+          evaluated content is not definable by external sources.                                          
+          Details: https://sg.run/ZvrD                                                                     
+                                                                                                           
+           12┆ print("Result:", eval(expr))  # Vulnerable
+
